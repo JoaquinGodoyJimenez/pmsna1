@@ -6,6 +6,7 @@ import 'package:pmsna1/models/post_model.dart';
 import 'package:pmsna1/provider/flags_provider.dart';
 import 'package:provider/provider.dart';
 
+//ignore: must_be_immutable
 class ItemPostWidget extends StatelessWidget {
   ItemPostWidget({super.key, this.objPostModel});
 

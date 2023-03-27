@@ -5,15 +5,14 @@ import 'package:pmsna1/provider/flags_provider.dart';
 import 'package:provider/provider.dart';
 
 //ignore: must_be_immutable
-class AddPostScreen extends StatelessWidget {
-  AddPostScreen({super.key});
+class AddEventScreen extends StatelessWidget {
+  AddEventScreen({super.key});
 
   DatabaseHelper database = DatabaseHelper();
   PostModel? objPosmodel;
 
   @override
-  Widget build(BuildContext context) {
-    
+  Widget build(BuildContext context) {    
     FlagsProvider flag = Provider.of<FlagsProvider>(context);
     final txtConPost = TextEditingController();
     if( ModalRoute.of(context)!.settings.arguments != null ){
@@ -35,8 +34,8 @@ class AddPostScreen extends StatelessWidget {
           //mainAxisAlignment: MainAxisAlignment.center,
           children: [
             objPosmodel == null 
-              ? const Text('Add Post :)') 
-              : const Text('Update Post :)'),
+              ? const Text('Add Event :)') 
+              : const Text('Update Event :)'),
             TextFormField(
               controller: txtConPost, 
               maxLines: 8,
@@ -45,9 +44,9 @@ class AddPostScreen extends StatelessWidget {
               onPressed: (){
 
                 if( objPosmodel == null ){
-                  database.INSERT('tblPost',{
-                    'dscPost' : txtConPost.text,
-                    'datePost' : DateTime.now().toString()
+                  database.INSERT('tblEvent',{
+                    'nmEvent' : txtConPost.text,
+                    'dateEvent' : DateTime.now().toString()
                   }).then((value){
 
                     var msg = value > 0 
@@ -63,14 +62,14 @@ class AddPostScreen extends StatelessWidget {
 
                   });
                 }else{
-                  database.UPDATE('tblPost',{
-                    'idPost' : objPosmodel!.idPost,
-                    'dscPost' : txtConPost.text,
-                    'datePost' : DateTime.now().toString()
+                  database.UPDATE('tblEvent',{
+                    'idEvent' : objPosmodel!.idPost,
+                    'nmEvent' : txtConPost.text,
+                    'dateEvent' : DateTime.now().toString()
                   }).then((value){
 
                     var msg = value > 0 
-                      ? 'Registro actualizado' 
+                      ? 'Evento actualizado' 
                       : 'Ocurrió un error';
 
                     var snackBar = SnackBar(

@@ -17,6 +17,6 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
     '/themes': (BuildContext context) => const ThemeSelecter(),
     '/add': (BuildContext context) => AddPostScreen(),
     '/popular': (BuildContext context) => const ListPopularVideos(),
-    '/events': (BuildContext context) => const EventosScreen(),
+    '/events': (BuildContext context) => const EventCalendarScreen(),
   };
 }

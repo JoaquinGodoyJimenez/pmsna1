@@ -35,6 +35,15 @@ class DatabaseHelper {
     db.execute(query);
   }
 
+  _createTableEvent(Database db, int version) async{
+    String query = '''CREATE TABLE tblEvent (
+      idEvent INTEGER PRIMARY KEY,
+      nmEvent VARCHAR(200),
+      dateEvent DATE
+    )''';
+    db.execute(query);
+  }
+
   Future<int> INSERT(String tblName, Map<String,dynamic> data) async{
     var conexion = await database;
     return conexion.insert(tblName, data);
