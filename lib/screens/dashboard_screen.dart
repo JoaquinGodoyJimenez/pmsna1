@@ -79,11 +79,17 @@ class _DashboardScreenState extends State<DashboardScreen> {
               trailing: Icon(Icons.chevron_right),
             ),
             ListTile(
+              onTap: () => Navigator.pushNamed(context, '/themes'),
+              title: Text('Selector de tema'),
+              leading: Icon(Icons.edit),
+              trailing: Icon(Icons.chevron_right),
+            ),
+            ListTile(
               onTap: () => Navigator.pushNamed(context, '/popular'),
               title: Text('API Videos'),
               leading: Icon(Icons.movie),
               trailing: Icon(Icons.chevron_right),
-            ),
+            ),/*
             DayNightSwitcher(
               isDarkModeEnabled: isDarkModeEnabled, 
               onStateChanged: (isDarkModeEnabled) {
@@ -93,7 +99,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 this.isDarkModeEnabled = isDarkModeEnabled;
                 setState(() {});
               },
-            )
+            )*/
           ],
         ),
       ),

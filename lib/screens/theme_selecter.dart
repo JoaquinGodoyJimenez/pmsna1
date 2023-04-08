@@ -3,28 +3,39 @@ import 'package:pmsna1/provider/theme_provider.dart';
 import 'package:pmsna1/settings/styles_settings.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:async';
 
 class ThemeSelecter extends StatefulWidget {
-  const ThemeSelecter({super.key});
+  const ThemeSelecter({Key? key}) : super(key: key);
 
   @override
   State<ThemeSelecter> createState() => _ThemeSelecterState();
 }
 
 class _ThemeSelecterState extends State<ThemeSelecter> {
-  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  late ThemeProvider theme;
+
+  Future<void> _setTheme(String themeName) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('theme', themeName);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    theme = Provider.of<ThemeProvider>(context, listen: false);
+  }
 
   @override
   Widget build(BuildContext context) {
-    ThemeProvider theme = Provider.of<ThemeProvider>(context);
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
-            image: DecorationImage(
-                opacity: .4,
-                fit: BoxFit.cover,
-                image: AssetImage('assets/fondo_itc.jpg'))),
+          image: DecorationImage(
+            opacity: .4,
+            fit: BoxFit.cover,
+            image: AssetImage('assets/fondo_itc.jpg'),
+          ),
+        ),
         child: Column(
           children: [
             Container(height: 250),
@@ -33,18 +44,22 @@ class _ThemeSelecterState extends State<ThemeSelecter> {
                 height: 44.0,
                 width: 120,
                 decoration: BoxDecoration(
-                    gradient:
-                        LinearGradient(colors: [Colors.grey, Colors.black12])),
+                  gradient: LinearGradient(
+                    colors: [Colors.grey, Colors.black12],
+                  ),
+                ),
                 child: ElevatedButton(
-                  onPressed: () async {
+                  onPressed: () {
                     theme.setthemeData(StyleSettings.darkTheme(context));
-                    final prefs = await SharedPreferences.getInstance();
-                    await prefs.setString('theme', 'darkTheme');
+                    _setTheme('darkTheme');
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Para aplicar los cambios es necesario reiniciar')),
+                    );
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.black,
                   ),
-                  child: Text('Noche'),
+                  child: const Text('Noche'),
                 ),
               ),
             ),
@@ -53,19 +68,23 @@ class _ThemeSelecterState extends State<ThemeSelecter> {
               height: 44.0,
               width: 120,
               decoration: BoxDecoration(
-                  gradient:
-                      LinearGradient(colors: [Colors.grey, Colors.white])),
+                gradient: LinearGradient(
+                  colors: [Colors.grey, Colors.white],
+                ),
+              ),
               child: ElevatedButton(
-                onPressed: () async {
+                onPressed: () {
                   theme.setthemeData(StyleSettings.lightTheme(context));
-                  final prefs = await SharedPreferences.getInstance();
-                  await prefs.setString('theme', 'lightTheme');
+                  _setTheme('lightTheme');
+                  ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Para aplicar los cambios es necesario reiniciar')),
+          );
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,
                   foregroundColor: Colors.black,
                 ),
-                child: Text('Día'),
+                child: const Text('Día'),
               ),
             ),
             Container(height: 10),
@@ -73,18 +92,22 @@ class _ThemeSelecterState extends State<ThemeSelecter> {
               height: 44.0,
               width: 120,
               decoration: BoxDecoration(
-                  gradient:
-                      LinearGradient(colors: [Colors.blue, Colors.black12])),
+                gradient: LinearGradient(
+                  colors: [Colors.blue, Colors.black12],
+                ),
+              ),
               child: ElevatedButton(
-                onPressed: () async {
+                onPressed: () {
                   theme.setthemeData(StyleSettings.darkBlueTheme(context));
-                  final prefs = await SharedPreferences.getInstance();
-                  await prefs.setString('theme', 'darkBlueTheme');
+                  _setTheme('darkBlueTheme');
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Para aplicar los cambios es necesario reiniciar')),
+                  );
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.transparent,
                 ),
-                child: Text('Azul noche'),
+                child: const Text('Azul noche'),
               ),
             ),
             Container(height: 10),
@@ -92,21 +115,26 @@ class _ThemeSelecterState extends State<ThemeSelecter> {
               height: 44.0,
               width: 120,
               decoration: BoxDecoration(
-                  gradient:
-                      LinearGradient(colors: [Colors.blue, Colors.white])),
+                gradient: LinearGradient(
+                  colors: [Colors.blue, Colors.white],
+                ),
+              ),
               child: ElevatedButton(
-                onPressed: () async {
+                onPressed: () {
                   theme.setthemeData(StyleSettings.lightBlueTheme(context));
-                  final prefs = await SharedPreferences.getInstance();
-                  await prefs.setString('theme', 'lightBlueTheme');
+                  _setTheme('lightBlueTheme');
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Para aplicar los cambios es necesario reiniciar')),
+                  );
                 },
                 style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.transparent,
-                    foregroundColor: Colors.black,
-                    shadowColor: Colors.transparent),
-                child: Text('Azul día'),
+                  backgroundColor: Colors.transparent,
+                  foregroundColor: Colors.black,
+                  shadowColor: Colors.transparent,
+                ),
+                child: const Text('Azul día'),
               ),
-            )
+            ),
           ],
         ),
       ),
