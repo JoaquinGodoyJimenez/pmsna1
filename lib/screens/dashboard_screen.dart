@@ -79,6 +79,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
               trailing: Icon(Icons.chevron_right),
             ),
             ListTile(
+              onTap: () {
+                Navigator.pushNamed(context, '/api');
+              },
+              title: Text('Práctica 6'),
+              subtitle: Text('Consumo de API'),
+              leading: Icon(Icons.settings),
+              trailing: Icon(Icons.chevron_right),
+            ),
+            ListTile(
               onTap: () => Navigator.pushNamed(context, '/themes'),
               title: Text('Selector de tema'),
               leading: Icon(Icons.edit),

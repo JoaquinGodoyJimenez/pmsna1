@@ -28,6 +28,7 @@ class _ThemeSelecterState extends State<ThemeSelecter> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: const Text('Selector de tema'),),
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
